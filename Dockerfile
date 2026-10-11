@@ -4,7 +4,6 @@ RUN apt-get update && apt-get install -y wget unzip && rm -rf /var/lib/apt/lists
 
 WORKDIR /app
 
-# Telegram Bot API 7.8.0 resmi binary sürümü
 RUN wget https://github.com/tdlib/telegram-bot-api/releases/download/v7.8.0/telegram-bot-api-ubuntu-20.04.tar.gz \
     && tar -xzf telegram-bot-api-ubuntu-20.04.tar.gz \
     && mv bin/telegram-bot-api /usr/local/bin/ \
