@@ -1,20 +1,17 @@
-FROM python:3.10-slim
+FROM eternnoir/telegram-bot-api:latest
 
-RUN apt-get update && apt-get install -y wget curl unzip && rm -rf /var/lib/apt/lists/*
+# Alpine tabanlı bu imaja Python ve pip kuruyoruz
+RUN apk add --no-cache python3 py3-pip bash
 
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# İndirme işlemini harici python dosyasıyla yapıyoruz (Dockerfile çökmesini engeller)
-RUN python3 get_api.py \
-    && tar -xzf bot-api.tar.gz \
-    && mv bin/telegram-bot-api /usr/local/bin/ \
-    && rm -rf bot-api.tar.gz bin
-
 EXPOSE 10000
 
-CMD telegram-bot-api --api-id="${API_ID}" --api-hash="${API_HASH}" --local & python bot.py
+# Resmi hazır sunucu giriş noktasını sıfırlayıp kendi komutumuzla çalıştırıyoruz
+ENTRYPOINT []
+CMD telegram-bot-api --api-id="${API_ID}" --api-hash="${API_HASH}" --local & python3 bot.py
