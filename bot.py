@@ -1,6 +1,4 @@
 import os
-import threading
-import subprocess
 import yt_dlp
 import telebot
 import imageio_ffmpeg
@@ -55,7 +53,6 @@ def download_media(query_or_url, is_audio=False):
             }],
         })
     else:
-        # 2 GB desteği olduğu için yüksek kalite (1080p) indirebiliriz!
         ydl_opts.update({
             'format': 'bestvideo[height<=1080]+bestaudio/best[height<=1080]/best',
         })
@@ -137,13 +134,6 @@ def universal_handler(message):
         os.remove(file_path)
     else:
         bot.edit_message_text("❌ İndirme başarısız oldu.", message.chat.id, status_msg.message_id)
-
-@app.route(f"/{TOKEN}", methods=["POST"])
-def webhook():
-    json_string = request.get_data().decode("utf-8")
-    update = telebot.types.Update.de_json(json_string)
-    bot.process_new_updates([update])
-    return "!", 200
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
