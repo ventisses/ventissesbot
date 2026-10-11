@@ -145,9 +145,8 @@ def webhook():
     bot.process_new_updates([update])
     return "!", 200
 
-@app.route("/")
-def index():
-    return "Bot ve Yerel Sunucu aktif!", 200
+@app.route("/webhook", methods=["POST"])
+def webhook():
 
 if __name__ == "__main__":
     # Render'da telegram-bot-api'yi arka planda Docker içinde tetiklemek istersen 
