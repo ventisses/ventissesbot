@@ -1,0 +1,6 @@
+pyTelegramBotAPI
+yt-dlp
+beautifulsoup4
+requests
+imageio-ffmpeg
+flask
